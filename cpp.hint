@@ -1,0 +1,5 @@
+// Hint files help the Visual Studio IDE interpret Visual C++ identifiers
+// such as names of functions and macros.
+// For more information see https://go.microsoft.com/fwlink/?linkid=865984
+#define ASN_OP(OP) template< uint BitsX = 32, typename = std::enable_if_t< BitsX <= NUM_BITS > > integer& operator OP=( const integer< BitsX, IntType >& x ) { return *this = operator OP( x ); }
+#define INT_BINOP(OP) template< uint A = 32, uint B = 32, typename IntType > integer< std::max( A, B ), IntType > operator OP( const integer< A, IntType >& a, const integer< B, IntType >& b ) { if constexpr ( A < B ) return integer< B, IntType >( a ) OP b; else return a OP integer< A, IntType >( b ); }
